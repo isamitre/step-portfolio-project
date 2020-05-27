@@ -18,12 +18,27 @@ ul.topnav li a {
 ul.topnav li a:hover {background-color: #560D32;}
 ul.topnav li.right {float: right;}
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 580px) {
   ul.topnav li.right, 
   ul.topnav li {float: none;}
 }
 
-.content {
+body {
+  background-color: #FAF7F9;
+}
+
+a:link, a:visited {
+    color:#901554;
+    font-weight:bold;
+    text-decoration: none;
+}
+a:hover {
+    color:#560D32;
+}
+
+
+
+#content {
   margin: 100px;
   display: flex;
   flex-wrap: nowrap;
@@ -37,18 +52,6 @@ ul.topnav li.right {float: right;}
 #text {
     padding: 20px;
     width: 500px;
-
-}
-@media screen and (max-width: 800px) {
-    .content {  
-        flex-wrap: wrap;
-        margin: 50px;
-
-    }
-    #text {
-        margin-right: 70px;
-        margin-left: 70px;
-    }
 }
 
 
@@ -57,11 +60,34 @@ ul.topnav li.right {float: right;}
 }
 
 
-a:link, a:visited {
-    color:#901554;
-    font-weight:bold;
-    text-decoration: none;
+#content-about {
+  margin: 50px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
 }
-a:hover {
-    color:#560D32;
+#bees {
+    float: left;
+    width: 300px;
+    padding: 20px;
+}
+#text-about {
+    padding: 20px;
+}
+
+h1, h2 {
+    margin-bottom: 3px;
+}
+
+@media screen and (max-width: 825px) {
+    #content, #content-about {  
+        flex-wrap: wrap;
+        margin: 50px;
+
+    }
+    #text {
+        margin-right: 70px;
+        margin-left: 70px;
+    }
 }
