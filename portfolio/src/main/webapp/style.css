@@ -38,7 +38,7 @@ a:hover {
 
 
 
-#content {
+.content {
   margin: 100px;
   display: flex;
   flex-wrap: nowrap;
@@ -60,7 +60,7 @@ a:hover {
 }
 
 
-#content-about {
+.content2 {
   margin: 50px;
   display: flex;
   flex-wrap: nowrap;
@@ -81,13 +81,35 @@ h1, h2 {
 }
 
 @media screen and (max-width: 825px) {
-    #content, #content-about {  
-        flex-wrap: wrap;
-        margin: 50px;
+  .content, .content2 {  
+    flex-wrap: wrap;
+    margin: 50px;
+  }
+  #text {
+    margin-right: 70px;
+    margin-left: 70px;
+  }
+}
 
-    }
-    #text {
-        margin-right: 70px;
-        margin-left: 70px;
-    }
+
+.content3 {
+  display:flex;
+  justify-content:center;
+  flex-wrap: wrap;
+}
+.column{
+  flex: 25%;
+  max-width: 25%;
+  padding: 5px;
+}
+.gallery {
+  width: 100%;
+  padding: 5px;
+}
+#explanantion {
+    max-width: 300px;
+}
+@media screen and (max-width: 580px) {
+  .column{padding: 2px;}
+  .gallery {padding: 5px;}
 }
