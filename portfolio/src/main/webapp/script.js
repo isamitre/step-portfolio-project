@@ -9,7 +9,7 @@ for(i=0;i< img.length;i++) {
   }
 }
 
-let span = document.getElementsByClassName("close")[0];
-span.onclick = function() { 
+let closeSpan = document.getElementsByClassName("close")[0];
+closeSPan.onclick = function() { 
    modal.style.display = "none";
 }
