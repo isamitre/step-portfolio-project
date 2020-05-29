@@ -109,10 +109,13 @@ a:hover {color:#560d32;}
   flex-wrap: nowrap;
   flex: 50%;
   max-width: 50%;
-  padding: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
+  margin-left: 4px;
+  margin-right: 4px;
 }
 .talent {
-  padding: 4px 4px;
+  padding: 4px;
   width: 50%;
 }
 @media screen and (max-width: 800px) {
