@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Gallery</title>
     <link rel="stylesheet" href="../style.css">
-    <script src=".../script.js"></script>
+    <script src="../script.js" defer></script>
   </head>
   <body>
     <ul class="topnav">
@@ -43,6 +43,7 @@
         <img class="gallery" src="../images/gallery/wasabi.jpg" alt="Light green wasabi coleus."/>
         <img class="gallery" src="../images/gallery/wasabi2.jpg" alt="Light green wasabi coleus."/>
         <img class="gallery" src="../images/gallery/wickedwitch.jpg" alt="Dark magenta and pink coleus"/>
+        <img class="gallery" src="../images/gallery/can.jpg" alt="Mint cuttings in soda can."/>
       </div>
     </div>  
     <!-- The Modal -->
@@ -51,6 +52,8 @@
     <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
     <!-- Modal Content (The Image) -->
     <img class="modal-content" id="img01">
+    <!-- Modal Caption (Image Text) -->
+  <div id="caption"></div>
 </div>
   </body>
 </html>

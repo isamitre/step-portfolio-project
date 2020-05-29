@@ -36,6 +36,7 @@ p, li {
 }
 hr {
   max-width: 1200px;
+  width: 90%;
 }
 .center {
   text-align: center
@@ -81,6 +82,48 @@ a:hover {color:#560d32;}
     margin-left: 70px;
   }
 }
+@media screen and (max-width: 580px) {
+  #text {
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+}
+
+/*Secret Talents*/
+.talents-wrap {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 80%;
+}
+.talents-nowrap {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  max-width: 80%;
+}
+.column50 {
+  flex: 50%;
+  max-width: 50%;
+  padding: 4px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.talent {
+  width: 50%;
+  padding: 4px 4px;
+}
+@media screen and (max-width: 800px) {
+  .talents-nowrap {
+    flex-wrap: wrap;
+  }
+  .column50 {
+    flex: 100%;
+    max-width: 100%;
+  }
+}
 
 /*Gallery*/
 #explanantion {
@@ -96,6 +139,7 @@ a:hover {color:#560d32;}
 .gallery {
   cursor: pointer;
   padding: 4px 4px;
+  transition: 0.3s;
   vertical-align: middle;
   width: 100%;
 }
@@ -118,7 +162,18 @@ a:hover {color:#560d32;}
   display: block;
   margin: auto;
   max-width: 700px;
-  width: 80%;
+  height: 75%;
+}
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
 }
 /* Add Animation - Zoom in the Modal */
 .modal-content {
@@ -180,6 +235,7 @@ a:hover {color:#560d32;}
   height: auto;
   max-width: 600px;
   padding:5px;
+  width: 90%;
 }
 @media screen and (max-width: 1000px) {
   .row {
