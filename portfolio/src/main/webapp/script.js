@@ -10,6 +10,6 @@ for(i=0;i< img.length;i++) {
 }
 
 let closeSpan = document.getElementsByClassName("close")[0];
-closeSPan.onclick = function() { 
-   modal.style.display = "none";
+closeSpan.onclick = function() { 
+  modal.style.display = "none";
 }
