@@ -13,3 +13,10 @@ let closeSpan = document.getElementsByClassName("close")[0];
 closeSpan.onclick = function() { 
   modal.style.display = "none";
 }
+
+
+async function getTitle() {
+  const response = await fetch('/data');
+  const title = await response.text();
+  document.getElementById('title-container').innerText = title;
+}
