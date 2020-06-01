@@ -165,7 +165,8 @@ a:hover {color:#560d32;}
   display: block;
   margin: auto;
   max-width: 700px;
-  height: 75%;
+  max-height: 75%;
+
 }
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
 #caption {
