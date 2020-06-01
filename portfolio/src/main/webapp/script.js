@@ -15,8 +15,13 @@ closeSpan.onclick = function() {
 }
 
 
-async function getTitle() {
+async function getGreeting() {
+  const response = await fetch('/greeting');
+  const greeting = await response.text();
+  document.getElementById('greeting-container').innerText = greeting;
+}
+
+async function getJSON() {
   const response = await fetch('/data');
-  const title = await response.text();
-  document.getElementById('title-container').innerText = title;
+  const comments = await response.json();
 }
