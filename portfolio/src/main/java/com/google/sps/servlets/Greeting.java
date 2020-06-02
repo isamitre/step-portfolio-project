@@ -40,13 +40,13 @@ public class Greeting extends HttpServlet {
   
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String greeting = greetings.get((int) (Math.random() * greetings.size()));
-    response.setContentType("text/html;");
-    if(greetings.size() != 0) {
-      response.getWriter().println(greeting + "Here's a little about me...");
+    String greeting = "Hi! Glad you're here. ";
+    
+    if (greetings != null && !greetings.isEmpty()) {
+      greeting = greetings.get((int) (Math.random() * greetings.size()));
     }
-    else {
-      response.getWriter().println("Hi! Here's a little about me...");
+    response.setContentType("text/html;");
+    response.getWriter().println(greeting + "Here's a little about me...");
     }
   }
 }
