@@ -108,12 +108,19 @@ a:hover {color:#560d32;}
   display: flex;
   flex-wrap: nowrap;
   flex: 50%;
+  margin-left: 4px;
+  margin-right: 4px;
   max-width: 50%;
-  padding: 4px;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 .talent {
-  padding: 4px 4px;
+  padding: 4px;
   width: 50%;
+}
+#talent-text {
+  padding-top: 20px;
+  width: 500px;
 }
 @media screen and (max-width: 800px) {
   .talents-nowrap {
@@ -161,9 +168,8 @@ a:hover {color:#560d32;}
 .modal-content {
   display: block;
   margin: auto;
-  max-width: 700px;
   max-height: 75%;
-
+  max-width: 700px;
 }
 /* Caption of Modal Image (Image Text) - Same Width as the Image */
 #caption {
