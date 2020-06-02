@@ -91,11 +91,13 @@ a:hover {color:#560d32;}
 
 /*Secret Talents*/
 .talents-wrap {
-  align-items: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
 }
 .talents-nowrap {
   align-items: center;
@@ -118,9 +120,33 @@ a:hover {color:#560d32;}
   padding: 4px;
   width: 50%;
 }
-#talent-text {
+.talent-text {
+  margin: 10px;
+  margin-bottom: 0px;
   padding-top: 20px;
-  width: 500px;
+  width: 40%;
+}
+#comment-box {
+  height: 100px;
+  width: 100%;
+}
+#comments-div {
+  margin: auto;
+  width: 60%;
+  border-style: double;
+}
+#comment-btn {
+  padding: 2px;
+  text-align: center;
+}
+.single-comment {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+  border-style: groove;
+  background-color: white;
+  padding: 4px;
 }
 @media screen and (max-width: 800px) {
   .talents-nowrap {
