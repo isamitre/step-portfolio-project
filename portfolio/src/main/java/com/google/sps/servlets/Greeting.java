@@ -14,7 +14,6 @@
 
 package com.google.sps.servlets;
 
-import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,27 +23,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/data")
-public class DataServlet extends HttpServlet {
+@WebServlet("/greeting")
+public class Greeting extends HttpServlet {
 
-  private List<String> comments;
+  private List<String> greetings;
 
   public void init() {
-    comments = new ArrayList<>();
-    comments.add("I crochet too!");
-    comments.add("I'm actually majoring in underwater basket weaving.");
-    comments.add("I garden as well but only cacti.");
-    comments.add("My secret talent is that I can whistle all of Queen's songs.");
-    comments.add("I'm a champion cup-stacker (I won gold in the AAU Junior Olympics). ");
+    greetings = new ArrayList<>();
+    greetings.add("Hi! Glad you're here. ");
+    greetings.add("Hi! Thanks for coming. ");
+    greetings.add("Welcome! ");
+    greetings.add("Salutations! ");
+    greetings.add("Howdy! ");
+    greetings.add("Hi! Nice of you to visit. ");
   }
-
+  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    Gson gson = new Gson();
-    String json = gson.toJson(comments);
-    response.setContentType("application/json;");
-    response.getWriter().println(json);
+    String greeting = "Hi! Glad you're here. ";
+    
+    if (greetings != null && !greetings.isEmpty()) {
+      greeting = greetings.get((int) (Math.random() * greetings.size()));
+    }
+    response.setContentType("text/html;");
+    response.getWriter().println(greeting + "Here's a little about me...");
+    }
   }
-
-
 }
