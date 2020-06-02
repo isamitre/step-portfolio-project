@@ -32,9 +32,9 @@ public class Greeting extends HttpServlet {
     greetings = new ArrayList<>();
     greetings.add("Hi! Glad you're here. ");
     greetings.add("Hi! Thanks for coming. ");
-    greetings.add("Welcome. ");
-    greetings.add("Salutations. ");
-    greetings.add("Howdy!");
+    greetings.add("Welcome! ");
+    greetings.add("Salutations! ");
+    greetings.add("Howdy! ");
     greetings.add("Hi! Nice of you to visit. ");
   }
 
