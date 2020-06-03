@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/comment")
 public class CommentServlet extends HttpServlet {
 
@@ -40,24 +39,22 @@ public class CommentServlet extends HttpServlet {
       response.setContentType("text/html");
       response.getWriter().println("There are no comments to show.");
     }
-    
   }
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
     String name = request.getParameter("name");
-    if(name.length() < 4) {
+    if (name.length() < 2) {
       System.out.println("Name too short");
       response.setContentType("text/html");
-      response.getWriter().println("Please enter a name that has at least 3 characters");
+      response.getWriter().println("Please enter a name that has at least 2 characters");
     }
 
     String text = request.getParameter("comment-box");
-    if(text.length() < 4) {
+    if (text.length() < 2) {
       System.out.println("Comment too short");
       response.setContentType("text/html");
-      response.getWriter().println("Please enter a comment that has at least 3 characters");
+      response.getWriter().println("Please enter a comment that has at least 2 characters");
     }
 
     Comment comment = new Comment(name,text);
