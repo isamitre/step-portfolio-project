@@ -23,10 +23,12 @@ async function checkComments() {
 
   if(btn.innerText == "Show Comments"){
     btn.innerText = "Hide Comments";
+    btn.style.marginBottom = "5px";
     getComments();
   }
   else if (btn.innerText == "Hide Comments") {
     btn.innerText = "Show Comments";
+    btn.style.marginBottom = "20px";
     const commentsElement = document.getElementById('comments-history');
     commentsElement.innerText = "";
     let divElement = document.getElementById("comments-div")
@@ -34,7 +36,7 @@ async function checkComments() {
 }
 
 async function getComments() {
-  const response = await fetch('/comment');
+  const response = await fetch('/list-comments');
   const comments = await response.json();
 
   if(Object.keys(comments)) {

@@ -41,6 +41,12 @@ hr {
 .center {
   text-align: center
 }
+.bigger {
+  margin: 100px;
+}
+.smaller {
+  margin: 50px;
+}
 a:link, a:visited {
   color:#901554;
   font-weight:bold;
@@ -55,9 +61,6 @@ a:hover {color:#560d32;}
   flex-wrap: nowrap;
   justify-content: center;
 }
-.bigger {
-  margin: 100px;
-}
 #profile {
   padding: 20px;
   width: 300px;
@@ -69,9 +72,6 @@ a:hover {color:#560d32;}
 
 
 /* About Me */
-.smaller {
-  margin: 50px;
-}
 @media screen and (max-width: 825px) {
   .content, smaller {  
     flex-wrap: wrap;
@@ -89,7 +89,7 @@ a:hover {color:#560d32;}
   }
 }
 
-/*Secret Talents*/
+/*SECRET TALENTS*/
 .talents-wrap {
   display: flex;
   flex-wrap: wrap;
@@ -141,6 +141,7 @@ a:hover {color:#560d32;}
 }
 #comment-btn {
   padding: 5px;
+  margin-bottom: 20px;
 }
 .single-comment {
   background-color: white;
@@ -182,7 +183,7 @@ a:hover {color:#560d32;}
   }
 }
 
-/*Gallery*/
+/*GALLERY*/
 #explanantion {
   margin: auto;
   max-width: 600px;

@@ -14,6 +14,10 @@
 
 package com.google.sps.servlets;
 
+
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.sps.data.Comment;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -25,8 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
-@WebServlet("/comment")
-public class CommentServlet extends HttpServlet {
+@WebServlet("/list-comments")
+public class ListCommentsServlet extends HttpServlet {
 
   private List<Comment> comments = new ArrayList<>();
 
@@ -40,30 +44,5 @@ public class CommentServlet extends HttpServlet {
       response.setContentType("text/html");
       response.getWriter().println("There are no comments to show.");
     }
-    
   }
-
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-    String name = request.getParameter("name");
-    if(name.length() < 4) {
-      System.out.println("Name too short");
-      response.setContentType("text/html");
-      response.getWriter().println("Please enter a name that has at least 3 characters");
-    }
-
-    String text = request.getParameter("comment-box");
-    if(text.length() < 4) {
-      System.out.println("Comment too short");
-      response.setContentType("text/html");
-      response.getWriter().println("Please enter a comment that has at least 3 characters");
-    }
-
-    Comment comment = new Comment(name,text);
-    comments.add(comment);
-    response.sendRedirect("pages/secret-talents.html");
-  }
-
-
 }
