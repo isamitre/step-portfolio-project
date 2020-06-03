@@ -13,9 +13,9 @@ public class Comment {
     private String date;
 
     public Comment(){
-        name="";
-        comment="";
-        date="";
+        name = "";
+        comment = "";
+        date = "";
     }
     public Comment(String n, String c){
         name = n;
@@ -29,7 +29,7 @@ public class Comment {
     public void setComment(String c){
         comment = c;
     }
-    public void setDate(){
+    public void setDateToCurrentTime(){
       date = getCurrentDate();
     }
     public String getName(){
