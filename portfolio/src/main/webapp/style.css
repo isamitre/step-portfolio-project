@@ -71,7 +71,7 @@ a:hover {color:#560d32;}
 }
 
 
-/* About Me */
+/* ABOUT ME */
 @media screen and (max-width: 825px) {
   .content, smaller {  
     flex-wrap: wrap;
@@ -111,8 +111,8 @@ a:hover {color:#560d32;}
 }
 .talent {
   height: auto;
-  margin: auto 2px;
-  padding: auto 2px;
+  margin: 2px 2px;
+  padding: 2px 2px;
   width: 50%;
 }
 .talent-text {
@@ -148,7 +148,7 @@ a:hover {color:#560d32;}
   background-color: #ede1e8;
   box-sizing: border-box;
   display: inline-block;
-  padding: auto 10px;
+  padding: 0 10px;
   width: 100%;
 }
 .comment-author {
@@ -159,7 +159,7 @@ a:hover {color:#560d32;}
   text-align: right;
 }
 .comment-text {
-  padding: auto 5px;
+  padding: 0 11px;
 }
 @media screen and (max-width: 800px) {
   .column50 {
