@@ -1,6 +1,6 @@
 
 async function getGreeting() {
-  const response = await fetch('/greeting2');
+  const response = await fetch('/greeting');
   const greeting = await response.text();
   document.getElementById('greeting-container').innerHTML = greeting;
 }
