@@ -24,10 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/greeting")
-public class Greeting extends HttpServlet {
-
+public class GreetingServlet extends HttpServlet {
   private List<String> greetings;
-
   public void init() {
     greetings = new ArrayList<>();
     greetings.add("Hi! Glad you're here. ");
@@ -47,6 +45,5 @@ public class Greeting extends HttpServlet {
     }
     response.setContentType("text/html;");
     response.getWriter().println(greeting + "Here's a little about me...");
-    }
   }
 }
