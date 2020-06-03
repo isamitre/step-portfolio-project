@@ -19,17 +19,16 @@ async function getFakeComments() {
 
 /* Checks if comments are hidden or not*/
 async function checkComments() {
-  let btn = document.getElementById("comment-btn");
+  let button = document.getElementById("comment-btn");
 
-  if(btn.innerText == "Show Comments"){
-    btn.innerText = "Hide Comments";
+  if (button.innerText == "Show Comments"){
+    button.innerText = "Hide Comments";
     getComments();
   }
-  else if (btn.innerText == "Hide Comments") {
-    btn.innerText = "Show Comments";
+  else if (button.innerText == "Hide Comments") {
+    button.innerText = "Show Comments";
     const commentsElement = document.getElementById('comments-history');
     commentsElement.innerText = "";
-    let divElement = document.getElementById("comments-div")
   }
 }
 
@@ -37,17 +36,13 @@ async function getComments() {
   const response = await fetch('/comment');
   const comments = await response.json();
 
-  if(Object.keys(comments)) {
-    let divElement = document.getElementById("comments-div")
-
+  if (Object.keys(comments)) {
     const commentsElement = document.getElementById('comments-history');
     commentsElement.innerText = "";
     for (let key of Object.keys(comments)) {
         let value = comments[key];
-        // console.log("value: ", value);
         commentsElement.appendChild(createComment(value));
     }
-    console.log(commentsElement);
   }
 }
 
@@ -70,7 +65,6 @@ function createComment(text) {
   date.innerText = text.date;
   commentHeader.appendChild(date);
   
-
   divElement.appendChild(commentHeader);
 
   const pElement = document.createElement('p');
