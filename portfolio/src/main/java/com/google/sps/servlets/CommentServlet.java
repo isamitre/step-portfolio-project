@@ -65,4 +65,5 @@ public class CommentServlet extends HttpServlet {
     response.sendRedirect("pages/secret-talents.html");
   }
 
+
 }

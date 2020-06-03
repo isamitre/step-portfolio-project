@@ -30,43 +30,53 @@ async function checkComments() {
     const commentsElement = document.getElementById('comments-history');
     commentsElement.innerText = "";
     let divElement = document.getElementById("comments-div")
-    divElement.style.backgroundColor = "white";
-    divElement.style.borderStyle = "none";
   }
 }
 
 async function getComments() {
-  let divElement = document.getElementById("comments-div")
-  divElement.style.backgroundColor = "#cba6b9";
-  divElement.style.borderStyle = "solid";
-
   const response = await fetch('/comment');
   const comments = await response.json();
 
-  const commentsElement = document.getElementById('comments-history');
-  commentsElement.innerText = "";
-  for (let key of Object.keys(comments)) {
-    let value = comments[key];
-    console.log("key: ", key);
-    console.log("value: ", value);
-    commentsElement.appendChild(createComment(value));
+  if(Object.keys(comments)) {
+    let divElement = document.getElementById("comments-div")
+
+    const commentsElement = document.getElementById('comments-history');
+    commentsElement.innerText = "";
+    for (let key of Object.keys(comments)) {
+        let value = comments[key];
+        // console.log("value: ", value);
+        commentsElement.appendChild(createComment(value));
+    }
+    console.log(commentsElement);
   }
 }
 
 /** Creates an div element containing the comment. */
 function createComment(text) {
   const divElement = document.createElement('div');
+  divElement.className = "single-comment";
 
+  const commentHeader = document.createElement('div');
+  commentHeader.className = "comment-header";
+
+  
   const h4Element = document.createElement('h4');
   h4Element.innerText = text.name;
-  divElement.appendChild(h4Element);
+  h4Element.className = "comment-author";
+  commentHeader.appendChild(h4Element);
 
-//   const hr = document.createElement('hr');
-//   divElement.appendChild(hr);
+  const date = document.createElement('p');
+  date.className = "comment-date";
+  date.innerText = text.date;
+  commentHeader.appendChild(date);
+  
+
+  divElement.appendChild(commentHeader);
 
   const pElement = document.createElement('p');
+  pElement.className = "comment-text"
   pElement.innerText = text.comment;
-  divElement.className = "single-comment";
+  
   divElement.appendChild(pElement);
 
   return divElement;
