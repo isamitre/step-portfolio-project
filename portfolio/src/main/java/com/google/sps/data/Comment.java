@@ -17,6 +17,11 @@ public class Comment {
         comment = c;
         date = getCurrentDate();
     }
+    public Comment(String n, String d, String c){
+        name = n;
+        comment = c;
+        date = d;
+    }
 
     private String getCurrentDate() {
       DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);  
