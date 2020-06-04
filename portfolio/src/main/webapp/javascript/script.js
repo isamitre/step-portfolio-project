@@ -5,7 +5,7 @@ async function getGreeting() {
   document.getElementById('greeting-container').innerHTML = greeting;
 }
 
-/*Old method to get the hard coded comments */
+/* Old method to get the hard coded comments */
 async function getFakeComments() {
   const response = await fetch('/talent');
   const comments = await response.json();
@@ -17,22 +17,17 @@ async function getFakeComments() {
   }
 }
 
-/* Checks if comments are hidden or not*/
-async function checkComments() {
-  let button = document.getElementById("comment-btn");
-
-  if (button.innerText == "Show Comments"){
-    button.innerText = "Hide Comments";
-    getComments();
-  }
-  else if (button.innerText == "Hide Comments") {
-    button.innerText = "Show Comments";
-    const commentsElement = document.getElementById('comments-history');
-    commentsElement.innerText = "";
-  }
+/* Hides the "Hide Comments" button */
+async function hideComments() {
+  hideDisplay();
+  const commentsElement = document.getElementById('comments-history');
+  commentsElement.innerText = "";
 }
 
+/* Loads comments */
 async function getComments() {
+  display();
+
   const response = await fetch('/list-comments');
   const comments = await response.json();
 
@@ -74,4 +69,17 @@ function createComment(text) {
   divElement.appendChild(pElement);
 
   return divElement;
+}
+
+function hideDisplay() {
+  const elements = document.getElementsByClassName("hide");
+  for (let i = 0; i < elements.length; i++) {
+      elements.item(i).style.display = "none";
+  }
+}
+function display() {
+  const elements = document.getElementsByClassName("hide");
+  for (let i = 0; i < elements.length; i++) {
+      elements.item(i).style.display = "initial";
+  }
 }

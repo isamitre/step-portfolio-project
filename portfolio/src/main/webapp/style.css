@@ -105,9 +105,9 @@ a:hover {color:#560d32;}
   display: flex;
   flex-wrap: nowrap;
   flex: 50%;
-  margin: auto 4px;
+  margin: 2px 2px;
   max-width: 50%;
-  padding: auto 4px;
+  padding: 2px 2px;
 }
 .talent {
   height: auto;
@@ -133,9 +133,12 @@ a:hover {color:#560d32;}
   margin: 0px;
   padding: 0px;
 }
-#comment-btn {
+.btn {
   padding: 5px;
   margin-bottom: 20px;
+}
+.hide {
+  display: none;
 }
 .single-comment {
   background-color: white;

@@ -26,17 +26,28 @@ public class ListCommentsServlet extends HttpServlet {
  
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
+
+    String numComments = request.getParameter("limit-comments-btn");
  
-    List<Comment> comments = new ArrayList<>();
+    List<Comment> allComments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
       	String name = (String) entity.getProperty("name");
         String date = (String) entity.getProperty("date");
         String commentText = (String) entity.getProperty("comment");
  
         Comment comment = new Comment(name, date, commentText);
-        comments.add(comment);
+        allComments.add(comment);
     }
- 
+
+    List<Comment> comments = new ArrayList<>();
+    int limit = allComments.size();
+    if (numComments != "starter") {
+      limit = Integer.parseInt(numComments);
+    }
+    for (int i = 0; i < limit; i++) {
+      comments.add(allComments.get(i));
+    }
+    
     if(!comments.isEmpty()) {
       Gson gson = new Gson();
  
@@ -45,7 +56,10 @@ public class ListCommentsServlet extends HttpServlet {
     } else {
       response.setContentType("text/html");
       response.getWriter().println("There are no comments to show.");
+      System.out.println("NO COMMENTS");
     }
+
+    response.sendRedirect("pages/secret-talents.html");
   }
 }
  
