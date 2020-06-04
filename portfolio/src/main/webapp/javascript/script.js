@@ -23,26 +23,34 @@ async function checkComments() {
 
   if (button.innerText == "Show Comments"){
     button.innerText = "Hide Comments";
+    button.style.marginBottom = "10px";
     getComments();
   }
   else if (button.innerText == "Hide Comments") {
     button.innerText = "Show Comments";
-    const commentsElement = document.getElementById('comments-history');
-    commentsElement.innerText = "";
+    button.style.marginBottom = "20px";
+    document.getElementById('comments-history').innerText = "";
   }
 }
 
 async function getComments() {
-  const response = await fetch('/list-comments');
-  const comments = await response.json();
-
-  if (Object.keys(comments)) {
+  fetch('/list-comments').then(response => response.json()).then((comments) => {
     const commentsElement = document.getElementById('comments-history');
-    commentsElement.innerText = "";
-    for (let key of Object.keys(comments)) {
-        let value = comments[key];
-        commentsElement.appendChild(createComment(value));
-    }
+    comments.forEach((comment) => {
+      console.log(comment);
+      commentsElement.appendChild(createComment(comment));
+      
+
+    })
+  });
+}
+
+async function deleteComment(comment){
+  let yes = confirm("Are you sure you want to delete this comment? This action cannot be undone.")
+  if (yes) {
+    const params = new URLSearchParams();
+    params.append('id', comment.id);
+    fetch('/delete-comment', {method: 'POST', body: params});
   }
 }
 
@@ -53,7 +61,6 @@ function createComment(text) {
 
   const commentHeader = document.createElement('div');
   commentHeader.className = "comment-header";
-
   
   const h4Element = document.createElement('h4');
   h4Element.innerText = text.name;
@@ -67,11 +74,25 @@ function createComment(text) {
   
   divElement.appendChild(commentHeader);
 
+  const commentContent = document.createElement('div');
+  commentContent.className = "comment-content";
+
   const pElement = document.createElement('p');
   pElement.className = "comment-text"
   pElement.innerText = text.comment;
-  
-  divElement.appendChild(pElement);
+  commentContent.appendChild(pElement);
 
+  const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.innerText = "Delete";
+  deleteButtonElement.className = "button";
+  deleteButtonElement.addEventListener('click', ( )=> {
+    deleteComment(text);
+    divElement.remove();
+  });
+  commentContent.appendChild(deleteButtonElement);
+
+  divElement.appendChild(commentContent);
+
+  console.log(divElement);
   return divElement;
 }

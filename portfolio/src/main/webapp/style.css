@@ -133,15 +133,17 @@ a:hover {color:#560d32;}
   margin: 0px;
   padding: 0px;
 }
-#comment-btn {
+button {
   padding: 5px;
+}
+#comment-btn {
   margin-bottom: 20px;
 }
 .single-comment {
   background-color: white;
   border-style: groove;
   line-height: 1;
-  margin: 20px auto 0;
+  margin: 10px auto;
   width: 100%;
 }
 .comment-header {
