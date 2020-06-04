@@ -13,14 +13,14 @@ public class Comment {
   private String date;
 
   public Comment(String n, String c){
-      name = n;
-      comment = c;
+    name = n;
+    comment = c;
     date = getCurrentDate();
   }
   public Comment(String n, String d, String c){
-      name = n;
-      comment = c;
-      date = d;
+    name = n;
+    comment = c;
+    date = d;
   }
   public void setDateToCurrentTime(){
     date = getCurrentDate();
