@@ -33,7 +33,7 @@ async function checkComments() {
 }
 
 async function getComments() {
-  const response = await fetch('/comment');
+  const response = await fetch('/list-comments');
   const comments = await response.json();
 
   if (Object.keys(comments)) {

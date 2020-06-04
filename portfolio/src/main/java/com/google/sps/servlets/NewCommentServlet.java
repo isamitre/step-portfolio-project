@@ -14,6 +14,10 @@
 
 package com.google.sps.servlets;
 
+
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import com.google.sps.data.Comment;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -24,22 +28,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/comment")
-public class CommentServlet extends HttpServlet {
-
-  private List<Comment> comments = new ArrayList<>();
-
-  @Override
-  public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    if(!comments.isEmpty()) {
-      response.setContentType("application/json;");
-      String json = new Gson().toJson(comments);
-      response.getWriter().println(json);
-    } else {
-      response.setContentType("text/html");
-      response.getWriter().println("There are no comments to show.");
-    }
-  }
+/** Servlet responsible for listing comments. */
+@WebServlet("/new-comment")
+public class NewCommentServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -58,7 +49,14 @@ public class CommentServlet extends HttpServlet {
     }
 
     Comment comment = new Comment(name,text);
-    comments.add(comment);
+    Entity com = new Entity("Comment");
+    com.setProperty("name", name);
+    com.setProperty("comment", text);
+    com.setProperty("date", comment.getDate());
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(com);
+    
     response.sendRedirect("pages/secret-talents.html");
   }
 
