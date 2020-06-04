@@ -29,12 +29,12 @@ public class ListCommentsServlet extends HttpServlet {
  
     List<Comment> comments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      	String name = (String) entity.getProperty("name");
-        String date = (String) entity.getProperty("date");
-        String commentText = (String) entity.getProperty("comment");
+     	String name = (String) entity.getProperty("name");
+      String date = (String) entity.getProperty("date");
+      String commentText = (String) entity.getProperty("comment");
  
-        Comment comment = new Comment(name, date, commentText);
-        comments.add(comment);
+      Comment comment = new Comment(name, date, commentText);
+      comments.add(comment);
     }
  
     if(!comments.isEmpty()) {
