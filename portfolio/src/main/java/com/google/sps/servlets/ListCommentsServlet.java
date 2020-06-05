@@ -26,15 +26,22 @@ public class ListCommentsServlet extends HttpServlet {
  
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
- 
+
+    String playerChoiceString = request.getParameter("limit-comments");
+    // int playerChoiceInt = Integer.valueOf(playerChoiceString);
+
     List<Comment> comments = new ArrayList<>();
+    int i = 1;
     for (Entity entity : results.asIterable()) {
+    //   if (i > playerChoiceInt)
+    //     break;
       String name = (String) entity.getProperty("name");
       String date = (String) entity.getProperty("date");
       String commentText = (String) entity.getProperty("comment");
  
       Comment comment = new Comment(name, date, commentText);
       comments.add(comment);
+      i++;
     }
  
     if(!comments.isEmpty()) {
@@ -46,6 +53,8 @@ public class ListCommentsServlet extends HttpServlet {
       response.setContentType("text/html");
       response.getWriter().println("There are no comments to show.");
     }
+    response.sendRedirect("/pages/secret-talents.html");
+
   }
 }
  
