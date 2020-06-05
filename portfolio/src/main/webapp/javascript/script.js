@@ -37,22 +37,11 @@ async function getComments() {
   fetch('/list-comments').then(response => response.json()).then((comments) => {
     const commentsElement = document.getElementById('comments-history');
     comments.forEach((comment) => {
-      console.log(comment);
       commentsElement.appendChild(createComment(comment));
-      
-
     })
   });
 }
 
-async function deleteComment(comment){
-  let yes = confirm("Are you sure you want to delete this comment? This action cannot be undone.")
-  if (yes) {
-    const params = new URLSearchParams();
-    params.append('id', comment.id);
-    fetch('/delete-comment', {method: 'POST', body: params});
-  }
-}
 
 /** Creates an div element containing the comment. */
 function createComment(text) {
@@ -84,10 +73,12 @@ function createComment(text) {
 
   const deleteButtonElement = document.createElement('button');
   deleteButtonElement.innerText = "Delete";
-  deleteButtonElement.className = "button";
+  deleteButtonElement.className = "delete-btn";
   deleteButtonElement.addEventListener('click', ( )=> {
-    deleteComment(text);
-    divElement.remove();
+    let deleteBool = deleteComment(text);
+    if (deleteBool) {
+        divElement.remove();
+    }
   });
   commentContent.appendChild(deleteButtonElement);
 
@@ -95,4 +86,15 @@ function createComment(text) {
 
   console.log(divElement);
   return divElement;
+}
+
+function deleteComment(comment){
+  let yes = confirm("Are you sure you want to delete this comment? This action cannot be undone.")
+  if (yes) {
+    const params = new URLSearchParams();
+    params.append('id', comment.id);
+    fetch('/delete-comment', {method: 'POST', body: params});
+    return true;
+  }
+  return false;
 }

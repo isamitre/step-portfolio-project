@@ -143,7 +143,7 @@ button {
   background-color: white;
   border-style: groove;
   line-height: 1;
-  margin: 10px auto;
+  margin: 10px auto 20px;
   width: 100%;
 }
 .comment-header {
@@ -160,8 +160,16 @@ button {
   margin: 0px;
   text-align: right;
 }
+.comment-content {
+  display: flex;
+  justify-content: space-between;
+}
 .comment-text {
   padding: 0 11px;
+}
+.delete-btn {
+  margin: 10px 10px;
+  height: 30px;
 }
 @media screen and (max-width: 800px) {
   .column50 {

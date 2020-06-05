@@ -8,17 +8,19 @@ import java.time.format.FormatStyle;
 
 // Class representing a Comment
 public class Comment {
-  private String name;
+  private long id;
+  private String author;
   private String comment;
   private String date;
 
-  public Comment(String n, String c){
-    name = n;
+  public Comment(long i, String n, String c){
+    
+    author = n;
     comment = c;
     date = getCurrentDate();
   }
   public Comment(String n, String d, String c){
-    name = n;
+    author = n;
     comment = c;
     date = d;
   }
