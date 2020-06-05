@@ -5,7 +5,7 @@ async function getGreeting() {
   document.getElementById('greeting-container').innerHTML = greeting;
 }
 
-/* Old method to get the hard coded comments */
+/*Old method to get the hard coded comments */
 async function getFakeComments() {
   const response = await fetch('/talent');
   const comments = await response.json();
@@ -17,33 +17,28 @@ async function getFakeComments() {
   }
 }
 
-/* Loads comments */
 async function getComments() {
-  console.log("getComments()");
   const response = await fetch('/list-comments');
-  console.log(response);
-  console.log(response.json.length);
   const comments = await response.json();
-  console.log("comments:");
-  console.log(comments);
-
-  const commentsElement = document.getElementById('comments-history');
-  commentsElement.innerText = "";
 
   if (Object.keys(comments)) {
-    comments.forEach((comment) => {
-        commentsElement.appendChild(createCommentElement(comment))
-    })
+    const commentsElement = document.getElementById('comments-history');
+    commentsElement.innerText = "";
+    for (let key of Object.keys(comments)) {
+        let value = comments[key];
+        commentsElement.appendChild(createComment(value));
+    }
   }
 }
 
 /** Creates an div element containing the comment. */
-function createCommentElement(comment) {
+function createComment(text) {
   const divElement = document.createElement('div');
   divElement.className = "single-comment";
 
   const commentHeader = document.createElement('div');
   commentHeader.className = "comment-header";
+
   
   const h4Element = document.createElement('h4');
   h4Element.innerText = text.name;

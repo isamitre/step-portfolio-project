@@ -22,48 +22,30 @@ public class ListCommentsServlet extends HttpServlet {
   
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    System.out.println("LIST COMMENTS SERVLET");
     Query query = new Query("Comment").addSort("date", SortDirection.DESCENDING);
  
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
-    String numComments = "all";
-    // numComments = request.getParameter("limit-comments-btn");
-    System.out.println("NUMCOMMENTS: : " + numComments);
  
-    List<Comment> allComments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
-      	String name = (String) entity.getProperty("name");
-        String date = (String) entity.getProperty("date");
-        String commentText = (String) entity.getProperty("comment");
- 
-        Comment comment = new Comment(name, date, commentText);
-        allComments.add(comment);
-    }
-
     List<Comment> comments = new ArrayList<>();
-    int limit = allComments.size();
-    if (numComments != "all") {
-      limit = Integer.parseInt(numComments);
+    for (Entity entity : results.asIterable()) {
+      String name = (String) entity.getProperty("name");
+      String date = (String) entity.getProperty("date");
+      String commentText = (String) entity.getProperty("comment");
+ 
+      Comment comment = new Comment(name, date, commentText);
+      comments.add(comment);
     }
-    for (int i = 0; i < limit; i++) {
-      comments.add(allComments.get(i));
-    }
-    
-    // if(comments.isEmpty()) {
-    //   response.setContentType("text/html");
-    //   response.getWriter().println("");
-      
-    // } 
-    // else {
+ 
+    if(!comments.isEmpty()) {
       Gson gson = new Gson();
+ 
       response.setContentType("application/json;");
       response.getWriter().println(gson.toJson(comments));
-    // }
-
-    response.sendRedirect("pages/secret-talents.html");
+    } else {
+      response.setContentType("text/html");
+      response.getWriter().println("There are no comments to show.");
+    }
   }
 }
  
-
