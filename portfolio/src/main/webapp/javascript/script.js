@@ -17,38 +17,33 @@ async function getFakeComments() {
   }
 }
 
-/* Hides the "Hide Comments" button */
-async function hideComments() {
-  hideDisplay();
-  const commentsElement = document.getElementById('comments-history');
-  commentsElement.innerText = "";
-}
-
 /* Loads comments */
 async function getComments() {
-  display();
-
+  console.log("getComments()");
   const response = await fetch('/list-comments');
+  console.log(response);
+  console.log(response.json.length);
   const comments = await response.json();
+  console.log("comments:");
+  console.log(comments);
+
+  const commentsElement = document.getElementById('comments-history');
+  commentsElement.innerText = "";
 
   if (Object.keys(comments)) {
-    const commentsElement = document.getElementById('comments-history');
-    commentsElement.innerText = "";
-    for (let key of Object.keys(comments)) {
-        let value = comments[key];
-        commentsElement.appendChild(createComment(value));
-    }
+    comments.forEach((comment) => {
+        commentsElement.appendChild(createCommentElement(comment))
+    })
   }
 }
 
 /** Creates an div element containing the comment. */
-function createComment(text) {
+function createCommentElement(comment) {
   const divElement = document.createElement('div');
   divElement.className = "single-comment";
 
   const commentHeader = document.createElement('div');
   commentHeader.className = "comment-header";
-
   
   const h4Element = document.createElement('h4');
   h4Element.innerText = text.name;
@@ -69,17 +64,4 @@ function createComment(text) {
   divElement.appendChild(pElement);
 
   return divElement;
-}
-
-function hideDisplay() {
-  const elements = document.getElementsByClassName("hide");
-  for (let i = 0; i < elements.length; i++) {
-      elements.item(i).style.display = "none";
-  }
-}
-function display() {
-  const elements = document.getElementsByClassName("hide");
-  for (let i = 0; i < elements.length; i++) {
-      elements.item(i).style.display = "initial";
-  }
 }

@@ -22,12 +22,15 @@ public class ListCommentsServlet extends HttpServlet {
   
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    System.out.println("LIST COMMENTS SERVLET");
     Query query = new Query("Comment").addSort("date", SortDirection.DESCENDING);
  
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    String numComments = request.getParameter("limit-comments-btn");
+    String numComments = "all";
+    // numComments = request.getParameter("limit-comments-btn");
+    System.out.println("NUMCOMMENTS: : " + numComments);
  
     List<Comment> allComments = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
@@ -41,23 +44,23 @@ public class ListCommentsServlet extends HttpServlet {
 
     List<Comment> comments = new ArrayList<>();
     int limit = allComments.size();
-    if (numComments != "starter") {
+    if (numComments != "all") {
       limit = Integer.parseInt(numComments);
     }
     for (int i = 0; i < limit; i++) {
       comments.add(allComments.get(i));
     }
     
-    if(!comments.isEmpty()) {
+    // if(comments.isEmpty()) {
+    //   response.setContentType("text/html");
+    //   response.getWriter().println("");
+      
+    // } 
+    // else {
       Gson gson = new Gson();
- 
       response.setContentType("application/json;");
       response.getWriter().println(gson.toJson(comments));
-    } else {
-      response.setContentType("text/html");
-      response.getWriter().println("There are no comments to show.");
-      System.out.println("NO COMMENTS");
-    }
+    // }
 
     response.sendRedirect("pages/secret-talents.html");
   }
