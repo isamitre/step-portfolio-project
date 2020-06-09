@@ -10,7 +10,8 @@
     <div id="map"></div>
     <script>
       let map;
-      let infoWindow;
+      let googleInfo;
+      let userInfo
       let bounds;
       function initMap() {
         const googleLatLng = {lat: 42.362899, lng: -71.087072};
@@ -19,7 +20,9 @@
           center: {lat: -34.397, lng: 150.644},
           zoom: 6
         });
-        infoWindow = new google.maps.InfoWindow;
+        googleInfo = new google.maps.InfoWindow;
+        userInfo = new google.maps.InfoWindow;
+
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -29,12 +32,23 @@
               lng: position.coords.longitude
             };
 
-            infoWindow.setPosition(pos);
-            infoWindow.setContent('Location found.');
-            infoWindow.open(map);
-            map.setCenter(pos);
+            userInfo.setPosition(pos);
+            userInfo.setContent('Your Location');
+            userInfo.open(map);
 
-            var marker = new google.maps.Marker({
+            googleInfo.setPosition(googleLatLng);
+            googleInfo.setContent('Google Cambridge');
+            googleInfo.open(map);
+
+
+            var userMkr = new google.maps.Marker({
+              position: pos,
+              map: map,
+              title: "Your Location",
+              animation: google.maps.Animation.DROP
+            });
+
+            var googleMkr = new google.maps.Marker({
               position: googleLatLng,
               map: map,
               title: "Google Cambridge",
