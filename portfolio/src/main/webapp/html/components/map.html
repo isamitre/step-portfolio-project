@@ -11,6 +11,7 @@
     <script>
       let map;
       let infoWindow;
+      let bounds;
       function initMap() {
         const googleLatLng = {lat: 42.362899, lng: -71.087072};
 
@@ -32,6 +33,18 @@
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
             map.setCenter(pos);
+
+            var marker = new google.maps.Marker({
+              position: googleLatLng,
+              map: map,
+              title: "Google Cambridge",
+              animation: google.maps.Animation.DROP
+            });
+
+            bounds = new google.maps.LatLngBounds();
+            bounds.extend(pos);
+            bounds.extend(googleLatLng);
+            map.fitBounds(bounds);
 
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
