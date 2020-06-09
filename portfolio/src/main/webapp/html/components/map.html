@@ -4,13 +4,13 @@
     <title>Geolocation</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../../style-map.css">
   </head>
   <body>
     <div id="map"></div>
     <script>
-      let infoWindow;
       let map;
+      let infoWindow;
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
@@ -26,12 +26,9 @@
               lng: position.coords.longitude
             };
 
-
             infoWindow.setPosition(pos);
             infoWindow.setContent('Location found.');
             infoWindow.open(map);
-
-
             map.setCenter(pos);
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
