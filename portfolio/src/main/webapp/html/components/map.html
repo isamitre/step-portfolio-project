@@ -13,6 +13,18 @@
       let googleInfo;
       let userInfo
       let bounds;
+
+      function haversine_distance(mk1, mk2) {
+        const R = 3958.8; // Radius of the Earth in miles
+        let rlat1 = mk1.position.lat() * (Math.PI/180); // Convert degrees to radians
+        let rlat2 = mk2.position.lat() * (Math.PI/180); // Convert degrees to radians
+        let difflat = rlat2-rlat1; // Radian difference (latitudes)
+        let difflon = (mk2.position.lng()-mk1.position.lng()) * (Math.PI/180); // Radian difference (longitudes)
+
+        let d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+        return d;
+      }
+
       function initMap() {
         const googleLatLng = {lat: 42.362899, lng: -71.087072};
 
