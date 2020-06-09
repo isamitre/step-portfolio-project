@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="../../style-map.css">
   </head>
   <body>
+    <div id="lineDist"></div>
+    <div id="driveDist"></div>
     <div id="map"></div>
     <script>
       let map;
@@ -53,19 +55,23 @@
             googleInfo.open(map);
 
 
-            var userMkr = new google.maps.Marker({
+            let userMkr = new google.maps.Marker({
               position: pos,
               map: map,
               title: "Your Location",
               animation: google.maps.Animation.DROP
             });
 
-            var googleMkr = new google.maps.Marker({
+            let googleMkr = new google.maps.Marker({
               position: googleLatLng,
               map: map,
               title: "Google Cambridge",
               animation: google.maps.Animation.DROP
             });
+
+            // Calculate and display the distance between markers
+            let lineDist = haversine_distance(userMkr, googleMkr);
+            document.getElementById('lineDist').innerHTML = "Straight line distance between you and Google Cambridge: " + lineDist.toFixed(2) + " mi.";
 
             bounds = new google.maps.LatLngBounds();
             bounds.extend(pos);
