@@ -17,11 +17,11 @@ hr {
   width: 90%;
 }
 iframe {
-    width: 100%;
+  border: none;
+  width: 100%;
 }
 .navbar {
   height: 50px;
-  border: none;
 }
 .center {
   text-align: center
@@ -38,6 +38,9 @@ a:link, a:visited {
   text-decoration: none;
 }
 a:hover {color:#560d32;}
+@media screen and (max-width: 580px) {
+  .navbar {height: 250px;}
+}
 
 /* Home Page */
 .content {
@@ -278,7 +281,6 @@ a:hover {color:#560d32;}
 }
 
 /* MAP */
-#map {height: 100%;}
 #map-frame {
   display: block;
   margin: 0 auto;
