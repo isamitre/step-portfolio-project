@@ -83,7 +83,7 @@
                   return;
               } else {
                 directionsRenderer.setDirections(response); // Add route to the map
-                var directionsData = response.routes[0].legs[0]; // Get data about the mapped route
+                let directionsData = response.routes[0].legs[0]; // Get data about the mapped route
                 if (!directionsData) {
                   window.alert('Directions request failed');
                   return;
