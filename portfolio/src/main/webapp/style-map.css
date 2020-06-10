@@ -7,5 +7,6 @@
 html, body {
   height: 100%;
   margin: 0;
+  max-height: 400px;
   padding: 0;
 }

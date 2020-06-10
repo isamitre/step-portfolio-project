@@ -39,7 +39,7 @@ a:link, a:visited {
 }
 a:hover {color:#560d32;}
 @media screen and (max-width: 580px) {
-  .navbar {height: 250px;}
+  .navbar {height: 300px;}
 }
 
 /* Home Page */
@@ -93,15 +93,13 @@ a:hover {color:#560d32;}
   display: flex;
   flex-wrap: nowrap;
   flex: 50%;
-  margin: auto 4px;
-  max-width: 50%;
-  padding: auto 4px;
+  max-width: 49%;
+  padding: 0 4px;
 }
 .talent {
   height: auto;
-  margin: 2px 2px;
-  padding: 2px 2px;
-  width: 50%;
+  padding: 4px 4px;
+  width: 49%;
 }
 .talent-text {
   margin: 10px;
@@ -283,7 +281,8 @@ a:hover {color:#560d32;}
 /* MAP */
 #map-frame {
   display: block;
-  margin: 0 auto;
-  height: 400px;
-  max-width: 80%;
+  height: 500px;
+  margin: 0 auto 10px;
+  max-width: 700px;
+  width: 80%;
 }
