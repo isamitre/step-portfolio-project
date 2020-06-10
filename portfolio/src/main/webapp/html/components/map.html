@@ -9,11 +9,10 @@
   <body>
     <div id="lineDist"></div>
     <div id="driveDist"></div>
+    <br>
     <div id="map"></div>
     <script>
       let map;
-      let googleInfo;
-      let userInfo
       let bounds;
 
       function haversine_distance(mk1, mk2) {
@@ -28,15 +27,12 @@
       }
 
       function initMap() {
-        const googleLatLng = {lat: 42.362899, lng: -71.087072};
+        const GOOGLE_LAT_LNG = {lat: 42.362899, lng: -71.087072};
 
         map = new google.maps.Map(document.getElementById('map'), {
           center: {lat: -34.397, lng: 150.644},
           zoom: 6
         });
-        googleInfo = new google.maps.InfoWindow;
-        userInfo = new google.maps.InfoWindow;
-
 
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
@@ -46,26 +42,17 @@
               lng: position.coords.longitude
             };
 
-            userInfo.setPosition(pos);
-            userInfo.setContent('Your Location');
-            userInfo.open(map);
-
-            googleInfo.setPosition(googleLatLng);
-            googleInfo.setContent('Google Cambridge');
-            googleInfo.open(map);
-
-
             let userMkr = new google.maps.Marker({
               position: pos,
               map: map,
-              title: "Your Location",
+              title: 'Your Location',
               animation: google.maps.Animation.DROP
             });
 
             let googleMkr = new google.maps.Marker({
-              position: googleLatLng,
+              position: GOOGLE_LAT_LNG,
               map: map,
-              title: "Google Cambridge",
+              title: 'Google Cambridge',
               animation: google.maps.Animation.DROP
             });
 
@@ -75,8 +62,37 @@
 
             bounds = new google.maps.LatLngBounds();
             bounds.extend(pos);
-            bounds.extend(googleLatLng);
+            bounds.extend(GOOGLE_LAT_LNG);
             map.fitBounds(bounds);
+
+            // Calculate and display the driving distance between markers
+            let directionsService = new google.maps.DirectionsService();
+            let directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map); // Existing map object displays directions
+            // Create route from existing points used for markers
+            const route = {
+                origin: pos,
+                destination: GOOGLE_LAT_LNG,
+                travelMode: 'DRIVING'
+            }
+
+            directionsService.route(route,
+              function(response, status) { // anonymous function to capture directions
+              if (status !== 'OK') {
+                  window.alert('Directions request failed due to ' + status);
+                  return;
+              } else {
+                directionsRenderer.setDirections(response); // Add route to the map
+                var directionsData = response.routes[0].legs[0]; // Get data about the mapped route
+                if (!directionsData) {
+                  window.alert('Directions request failed');
+                  return;
+                }
+                else {
+                  document.getElementById('driveDist').innerHTML += " Driving distance is " + directionsData.distance.text + " (" + directionsData.duration.text + ").";
+                }
+              }
+            });
 
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
