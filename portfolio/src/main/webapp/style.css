@@ -1,25 +1,3 @@
-/* Navigation Bar */
-.topnav {
-  background-color: #731143; 
-  list-style-type: none;
-  margin: 0;
-  overflow: hidden;
-  padding: 0;
-}
-.topnav li {float: left;}
-.topnav li a {
-  color: white;
-  display: block;
-  padding: 14px 16px;
-  text-align: center;
-  text-decoration: none;
-}
-.topnav li a:hover {background-color: #560d32;}
-.topnav li.right {float: right;}
-@media screen and (max-width: 580px) {
-  .topnav li.right, 
-  .topnav li {float: none;}
-}
 
 /* Applicable to All */
 body {
@@ -37,6 +15,13 @@ p, li {
 hr {
   max-width: 1200px;
   width: 90%;
+}
+iframe {
+    width: 100%;
+}
+.navbar {
+  height: 50px;
+  border: none;
 }
 .center {
   text-align: center
@@ -290,4 +275,13 @@ a:hover {color:#560d32;}
   .row {
     flex-flow: wrap;
   }
+}
+
+/* MAP */
+#map {height: 100%;}
+#map-frame {
+  display: block;
+  margin: 0 auto;
+  height: 400px;
+  max-width: 80%;
 }
