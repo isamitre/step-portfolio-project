@@ -57,7 +57,7 @@ public class NewCommentServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(com);
     
-    response.sendRedirect("pages/secret-talents.html");
+    response.sendRedirect("html/pages/SecretTalents.html");
   }
 
 
