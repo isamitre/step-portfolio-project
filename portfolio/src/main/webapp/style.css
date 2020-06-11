@@ -291,3 +291,13 @@ a:hover {color:#560d32;}
     flex-flow: wrap;
   }
 }
+
+/* MUSIC */
+#playlists {
+    display: flex;
+    justify-content: center;
+}
+.playlist {
+    padding: 5px 5px;
+    width: 300px;
+}
