@@ -1,0 +1,26 @@
+/* Navigation Bar */
+.topnav {
+  background-color: #731143; 
+  list-style-type: none;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+}
+.topnav li {float: left;}
+.topnav li a {
+  color: white;
+  display: block;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+.topnav li a:hover {background-color: #560d32;}
+.topnav li.right {float: right;}
+@media screen and (max-width: 580px) {
+  .topnav li.right, 
+  .topnav li {float: none;}
+}
+
+body {
+  margin: 0 0;
+}

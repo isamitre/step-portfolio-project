@@ -53,7 +53,7 @@ public class ListCommentsServlet extends HttpServlet {
       response.setContentType("text/html");
       response.getWriter().println("There are no comments to show.");
     }
-    response.sendRedirect("/pages/secret-talents.html");
+    response.sendRedirect("/html/pages/SecretTalents.html");
 
   }
 }
