@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../style-map.css">
+  </head>
+  <body>
+    <div id="lineDist"></div>
+    <div id="driveDist"></div>
+    <br>
+    <div id="map"></div>
+    <script>
+      let map;
+      let bounds;
+
+      function haversine_distance(mk1, mk2) {
+        const R = 3958.8; // Radius of the Earth in miles
+        let rlat1 = mk1.position.lat() * (Math.PI/180); // Convert degrees to radians
+        let rlat2 = mk2.position.lat() * (Math.PI/180); // Convert degrees to radians
+        let difflat = rlat2-rlat1; // Radian difference (latitudes)
+        let difflon = (mk2.position.lng()-mk1.position.lng()) * (Math.PI/180); // Radian difference (longitudes)
+
+        let distance = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+        return distance;
+      }
+
+      function initMap() {
+        const GOOGLE_LAT_LNG = {lat: 42.362899, lng: -71.087072};
+
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 6
+        });
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            let pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            let userMkr = new google.maps.Marker({
+              position: pos,
+              map: map,
+              title: 'Your Location',
+              animation: google.maps.Animation.DROP
+            });
+
+            let googleMkr = new google.maps.Marker({
+              position: GOOGLE_LAT_LNG,
+              map: map,
+              title: 'Google Cambridge',
+              animation: google.maps.Animation.DROP
+            });
+
+            // Calculate and display the distance between markers
+            let lineDist = haversine_distance(userMkr, googleMkr);
+            document.getElementById('lineDist').innerHTML = "Straight line distance between you and Google Cambridge: " + lineDist.toFixed(2) + " mi.";
+
+            bounds = new google.maps.LatLngBounds();
+            bounds.extend(pos);
+            bounds.extend(GOOGLE_LAT_LNG);
+            map.fitBounds(bounds);
+
+            // Calculate and display the driving distance between markers
+            let directionsService = new google.maps.DirectionsService();
+            let directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsRenderer.setMap(map); // Existing map object displays directions
+            // Create route from existing points used for markers
+            const route = {
+                origin: pos,
+                destination: GOOGLE_LAT_LNG,
+                travelMode: 'DRIVING'
+            }
+
+            directionsService.route(route,
+              function(response, status) { // anonymous function to capture directions
+              if (status !== 'OK') {
+                  window.alert('Directions request failed due to ' + status);
+                  return;
+              } else {
+                directionsRenderer.setDirections(response); // Add route to the map
+                let directionsData = response.routes[0].legs[0]; // Get data about the mapped route
+                if (!directionsData) {
+                  window.alert('Directions request failed');
+                  return;
+                }
+                else {
+                  document.getElementById('driveDist').innerHTML += " Driving distance is " + directionsData.distance.text + " (" + directionsData.duration.text + ").";
+                }
+              }
+            });
+
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBJzahDJqy4B1zem1ognChPC-0FhO7uwEA&callback=initMap">
+    </script>
+  </body>
+</html>
