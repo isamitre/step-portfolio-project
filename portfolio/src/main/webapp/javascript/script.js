@@ -35,6 +35,7 @@ async function checkComments() {
 async function getComments() {
   const response = await fetch('/list-comments');
   const comments = await response.json();
+  console.log(comments);
 
   if (Object.keys(comments)) {
     const commentsElement = document.getElementById('comments-history');

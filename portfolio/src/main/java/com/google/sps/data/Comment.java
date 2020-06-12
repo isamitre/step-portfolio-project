@@ -8,19 +8,25 @@ import java.time.format.FormatStyle;
 
 // Class representing a Comment
 public class Comment {
-  private String name;
-  private String comment;
+  private float id;
+  private String author;
+  private String commentText;
   private String date;
+  private float sentiment;
 
-  public Comment(String n, String c){
-    name = n;
-    comment = c;
+  public Comment(float id, String author, String commentText, float sentiment){
+    this.id = id;
+    this.author = author;
+    this.commentText = commentText;
     date = getCurrentDate();
+    this.sentiment = sentiment;
   }
-  public Comment(String n, String d, String c){
-    name = n;
-    comment = c;
-    date = d;
+  public Comment(float id, String author, String commentText, float sentiment, String date){
+    this.id = id;
+    this.author = author;
+    this.commentText = commentText;
+    this.date = date;
+    this.sentiment = sentiment;
   }
   public void setDateToCurrentTime(){
     date = getCurrentDate();
@@ -29,7 +35,7 @@ public class Comment {
     return date;
   }
 
-  private String getCurrentDate() {
+  public static String getCurrentDate() {
     DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);  
     LocalDateTime now = LocalDateTime.now();  
     String output = dtf.format(now);

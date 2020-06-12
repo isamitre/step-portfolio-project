@@ -14,7 +14,12 @@
 
 package com.google.sps.servlets;
 
-
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime;
+import java.time.format.FormatStyle;
+import com.google.cloud.language.v1.Document;
+import com.google.cloud.language.v1.LanguageServiceClient;
+import com.google.cloud.language.v1.Sentiment;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -32,27 +37,40 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/new-comment")
 public class NewCommentServlet extends HttpServlet {
 
+  public static String getCurrentDate() {
+    DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM);  
+    LocalDateTime now = LocalDateTime.now();  
+    String output = dtf.format(now);
+    return output;
+  }
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String name = request.getParameter("name");
-    if (name.length() < 2) {
-      System.out.println("Name too short");
-      response.setContentType("text/html");
-      response.getWriter().println("Please enter a name that has at least 2 characters");
-    }
+    String author = request.getParameter("name");
+    // if (author.length() < 2) {
+    //   System.out.println("Name too short");
+    //   response.setContentType("text/html");
+    //   response.getWriter().println("Please enter a name that has at least 2 characters");
+    // }
 
-    String text = request.getParameter("comment-box");
-    if (text.length() < 2) {
-      System.out.println("Comment too short");
-      response.setContentType("text/html");
-      response.getWriter().println("Please enter a comment that has at least 2 characters");
-    }
+    String commentText = request.getParameter("comment-box");
+    // if (commentText.length() < 2) {
+    //   System.out.println("Comment too short");
+    //   response.setContentType("text/html");
+    //   response.getWriter().println("Please enter a comment that has at least 2 characters");
+    // }
+    Document doc =
+        Document.newBuilder().setContent(commentText).setType(Document.Type.PLAIN_TEXT).build();
+    LanguageServiceClient languageService = LanguageServiceClient.create();
+    Sentiment sentiment = languageService.analyzeSentiment(doc).getDocumentSentiment();
+    float score = sentiment.getScore();
+    languageService.close();
 
-    Comment comment = new Comment(name,text);
     Entity com = new Entity("Comment");
-    com.setProperty("name", name);
-    com.setProperty("comment", text);
-    com.setProperty("date", comment.getDate());
+    com.setProperty("author", author);
+    com.setProperty("commentText", commentText);
+    com.setProperty("date", getCurrentDate());
+    com.setProperty("sentiment", score);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(com);
