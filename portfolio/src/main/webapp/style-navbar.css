@@ -16,9 +16,12 @@
 }
 .topnav li a:hover {background-color: #560d32;}
 .topnav li.right {float: right;}
-@media screen and (max-width: 580px) {
+@media screen and (max-width: 610px) {
   .topnav li.right, 
-  .topnav li {float: none;}
+  .topnav li {
+    float: none;
+    height: 40px;
+  }
 }
 
 body {
