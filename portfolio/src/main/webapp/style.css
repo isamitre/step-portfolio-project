@@ -38,8 +38,8 @@ a:link, a:visited {
   text-decoration: none;
 }
 a:hover {color:#560d32;}
-@media screen and (max-width: 580px) {
-  .navbar {height: 300px;}
+@media screen and (max-width: 610px) {
+  .navbar {height: 240px;}
 }
 
 /* Home Page */
@@ -288,6 +288,29 @@ a:hover {color:#560d32;}
   .row {
     flex-flow: wrap;
   }
+}
+
+/* MUSIC */
+.small {
+  line-height: 1;
+}
+#music-content {
+  margin: 50px 0;
+}
+#music-caption {
+  margin: 5px auto -5px;
+}
+#playlists {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+}
+.playlist-div {
+  padding: 10px;
+  width: 300px;
+}
+.playlist {
+    height: 380px;
 }
 
 /* MAP */
