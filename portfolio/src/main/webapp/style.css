@@ -266,9 +266,23 @@ a:hover {color:#560d32;}
   max-width:500px;
   padding: 10px;
 }
+.project-link {
+  height: auto;
+  margin-right: -55px;
+  max-width: 657px;
+  padding:5px;
+  width: 90%;
+}
 .project {
   height: auto;
   max-width: 600px;
+  padding:5px;
+  width: 90%;
+}
+#minesweeper {
+  height: auto;
+  margin-right: 50px;
+  max-width: 560px;
   padding:5px;
   width: 90%;
 }
