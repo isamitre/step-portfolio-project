@@ -71,7 +71,6 @@ public final class FindMeetingQuery {
       add = false;
       if (timeSlots[i]) {
         add = true;
-        System.out.println("timeSlot is true: " +i);
         // checks if the duration is longer than a single time slot
         for (int j = 1; j < requestSlots; j++) {
           if((i+j)<timeSlots.length && !timeSlots[i+j]) {
@@ -88,14 +87,16 @@ public final class FindMeetingQuery {
     }
     int start = TimeRange.START_OF_DAY;
     boolean done = false;
-    System.out.println(possibleSlots.size() - requestSlots);
+    // if there's just enough room
+    if (requestSlots == possibleSlots.size()){
+      start = possibleSlots.get(0)*30;
+      possibleTimes.add(TimeRange.fromStartEnd(start, start+ (int) requestDuration, false));
+    }
+    // everything else
     for (int i = 0; i < possibleSlots.size() - requestSlots; i++) {
-        System.out.println(i);
       // if the next value at the next index is not +1 from the last
       if (possibleSlots.get(i+1) - 1 != possibleSlots.get(i)) {
-        System.out.println("        possibleSlots.get("+i+") = "+possibleSlots.get(i));
         possibleTimes.add(TimeRange.fromStartEnd(start, possibleSlots.get(i)*30+30, false));
-        System.out.println("        start: " + start + "              end: " + possibleSlots.get(i)*30+30);
         start = possibleSlots.get(i+1)*30;
         numEvents--;
       }
@@ -109,8 +110,6 @@ public final class FindMeetingQuery {
     }
     if(done) {
       possibleTimes.add(TimeRange.fromStartEnd(start, TimeRange.END_OF_DAY, true));
-      System.out.println("        done");
-      System.out.println("        start: " + start + "              end: " + TimeRange.END_OF_DAY);
     }
 
     System.out.println();
