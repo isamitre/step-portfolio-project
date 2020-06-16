@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 public final class FindMeetingQuery {
-  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {    
+  public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     Collection<String> requestAttendees = request.getAttendees();
     long requestDuration = request.getDuration();
     int requestSlots = (int) requestDuration / 30;
@@ -48,21 +48,28 @@ public final class FindMeetingQuery {
         end--;
         eventSlots++;
       }
-      
+
+      int count = numEvents;
       Iterator<String> eventAi = eventAttendees.iterator(); 
       while(eventAi.hasNext()) {
+        count--;
+        String eventAttendee = eventAi.next();
         Iterator<String> requestAi = requestAttendees.iterator(); 
         while(requestAi.hasNext()) {
-          String eventAttendee = eventAi.next();
           String requestAttendee = requestAi.next();
           if (eventAttendee.equals(requestAttendee)) {
             for (int i = 0; i < eventSlots; i++) {
               timeSlots[start + i] = false;
             }
+            break;
           }
+        }
+        if(count == 0) {
+            break;
         }
       }
     }
+
     //checks the duration and how many time slots are necessary
     ArrayList<TimeRange> possibleTimes = new ArrayList<TimeRange>();
     ArrayList<Integer> possibleSlots = new ArrayList<Integer>();
@@ -112,7 +119,6 @@ public final class FindMeetingQuery {
       possibleTimes.add(TimeRange.fromStartEnd(start, TimeRange.END_OF_DAY, true));
     }
 
-    System.out.println();
     return possibleTimes;
   }
 }
