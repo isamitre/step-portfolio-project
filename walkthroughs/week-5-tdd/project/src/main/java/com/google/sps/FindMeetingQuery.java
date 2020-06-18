@@ -27,7 +27,6 @@ public final class FindMeetingQuery {
     Collection<String> allAttendees = new ArrayList<>();
     allAttendees.addAll(requestAttendees);
     allAttendees.addAll(optionalAttendees);
-    // allAttendees.addAll(requestAttendees);
     long requestDuration = request.getDuration();
     int numRequestSlots = (int) requestDuration / 30;
     int numEvents = events.size();
@@ -35,7 +34,7 @@ public final class FindMeetingQuery {
     boolean[] mandatoryTimeSlots = new boolean[48];
     boolean[] allTimeSlots = new boolean[48];
 
-    // if the duration is longer than a day means there should be no options.
+    // if the duration is longer than a day there are no options
     if (requestDuration >= TimeRange.WHOLE_DAY.duration() + 1)
       return Arrays.asList();
     // if there are no attendees, the time range is the whole day
@@ -49,17 +48,10 @@ public final class FindMeetingQuery {
     }
 
     ArrayList<Integer> possibleSlots = convertToSlots(mandatoryTimeSlots, numRequestSlots);
-    ArrayList<Integer> allSlots = convertToSlots(allTimeSlots, numRequestSlots);    
+    ArrayList<Integer> allSlots = convertToSlots(allTimeSlots, numRequestSlots);
     
     ArrayList<TimeRange> possibleTimes = convertToTimes(possibleSlots, numRequestSlots, numEvents);
     ArrayList<TimeRange> allTimes = convertToTimes(allSlots, numRequestSlots, numEvents);
-
-    System.out.println("POSSIBLE TIMES");
-    for (TimeRange i : possibleTimes)
-        System.out.println("    " + i.toString());
-    System.out.println("ALL TIMES");
-    for (TimeRange i : allTimes)
-        System.out.println("     " + i.toString());
 
     if(allTimes.isEmpty() && !possibleTimes.contains(TimeRange.WHOLE_DAY))
         return possibleTimes;
@@ -100,7 +92,7 @@ public final class FindMeetingQuery {
     return timeSlots;
   }
 
-  //converts the true/false values of timeSlots to possibleSlots
+  // converts boolean availability to list of available slots
   public static ArrayList<Integer> convertToSlots (boolean timeSlots[], int numRequestSlots) {
     ArrayList<Integer> slots = new ArrayList<Integer>();
     boolean add;
@@ -109,49 +101,64 @@ public final class FindMeetingQuery {
       if (timeSlots[i]) {
         add = true;
         // checks if the duration is longer than a single time slot
-        for (int j = 1; j < numRequestSlots; j++) {
-          if ((i+j) < timeSlots.length && !timeSlots[i+j]) {
+        for (int j = 1; j < numRequestSlots; j++)
+          if ((i+j) < timeSlots.length && !timeSlots[i+j])
             add = false;
-          }
-        }
       }
-      if(add) {
-        for (int j = 0; j < numRequestSlots; j++) {
+      if(add)
+        for (int j = 0; j < numRequestSlots; j++)
           slots.add(i+j);
-        }
-      }
     }
     return slots;
   }
 
+  // converts list of available slots to a list of TimeRanges 
   public static ArrayList<TimeRange> convertToTimes (ArrayList<Integer> slots, int numRequestSlots, int numEvents) {
     ArrayList<TimeRange> possibleTimes = new ArrayList<TimeRange>();
-    int start = TimeRange.START_OF_DAY;
+    int start;
     boolean done = false;
+
+    // if slots size is zero
+    if(slots.size() == 0) 
+      return possibleTimes;
+
+    start = slots.get(0)*30;
 
     // if there's just enough room
     if (numRequestSlots == slots.size()){
-      start = slots.get(0)*30;
       possibleTimes.add(TimeRange.fromStartEnd(start, start + numRequestSlots*30, false));
+      return possibleTimes;
     }
+
+    // if the whole day is available
+    if (slots.size() == 48){
+      possibleTimes.add(TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TimeRange.END_OF_DAY, true));
+      return possibleTimes;
+    }
+
     // everything else
     for (int i = 0; i < slots.size() - numRequestSlots; i++) {
       // if the next value at the next index is not +1 from the last
-      if (slots.get(i+1) - 1 != slots.get(i)) {
-        possibleTimes.add(TimeRange.fromStartEnd(start, slots.get(i)*30+30, false));
-        start = slots.get(i+1)*30;
+      int current = slots.get(i);
+      int next = slots.get(i+1);
+      if (current != next - 1) {
+        possibleTimes.add(TimeRange.fromStartEnd(start, current*30+30, false));
+        start = next*30;
         numEvents--;
       }
-      if(i == slots.size() - numRequestSlots - 1) {
+      if (i == slots.size() - numRequestSlots - 1)
         done = true;
-      }
-      if(numEvents == 0){
+      if (numEvents == 0){
         done = true;
         break;
       }
     }
     if(done) {
-      possibleTimes.add(TimeRange.fromStartEnd(start, TimeRange.END_OF_DAY, true));
+      int end =  slots.get(slots.size()-1)+1;
+      if (end + 1 == 1440) 
+        possibleTimes.add(TimeRange.fromStartEnd(start, end*30, true));
+      else
+        possibleTimes.add(TimeRange.fromStartEnd(start, end*30, false));
     }
     return possibleTimes;
   }
