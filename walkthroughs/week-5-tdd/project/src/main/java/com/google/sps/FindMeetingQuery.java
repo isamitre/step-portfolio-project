@@ -53,8 +53,15 @@ public final class FindMeetingQuery {
     
     ArrayList<TimeRange> possibleTimes = convertToTimes(possibleSlots, numRequestSlots, numEvents);
     ArrayList<TimeRange> allTimes = convertToTimes(allSlots, numRequestSlots, numEvents);
-    
-    if(allTimes.isEmpty())
+
+    System.out.println("POSSIBLE TIMES");
+    for (TimeRange i : possibleTimes)
+        System.out.println("    " + i.toString());
+    System.out.println("ALL TIMES");
+    for (TimeRange i : allTimes)
+        System.out.println("     " + i.toString());
+
+    if(allTimes.isEmpty() && !possibleTimes.contains(TimeRange.WHOLE_DAY))
         return possibleTimes;
     return allTimes;
   }
