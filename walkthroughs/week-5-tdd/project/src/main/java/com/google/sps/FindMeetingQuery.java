@@ -53,11 +53,11 @@ public final class FindMeetingQuery {
     ArrayList<TimeRange> possibleTimes = convertToTimes(possibleSlots, numRequestSlots, numEvents);
     ArrayList<TimeRange> allTimes = convertToTimes(allSlots, numRequestSlots, numEvents);
 
-    if(allTimes.isEmpty() && !possibleTimes.contains(TimeRange.WHOLE_DAY))
+    if (allTimes.isEmpty() && !possibleTimes.contains(TimeRange.WHOLE_DAY))
         return possibleTimes;
     return allTimes;
   }
-
+  
   public static boolean[] convertToTimeSlots (Collection<String> requestAttendees, Collection<Event> events) {
     boolean[] timeSlots = new boolean[48];
     Arrays.fill(timeSlots, Boolean.TRUE);
@@ -75,18 +75,16 @@ public final class FindMeetingQuery {
         String eventAttendee = eventAi.next();
 
         Iterator<String> requestAi = requestAttendees.iterator(); 
-        while(requestAi.hasNext()) {
+        while (requestAi.hasNext()) {
           String requestAttendee = requestAi.next();
           if (eventAttendee.equals(requestAttendee)) {
-            for (int i = 0; i < eventSlots; i++) {
+            for (int i = 0; i < eventSlots; i++) 
               timeSlots[start + i] = false;
-            }
             break;
           }
         }
-        if(numEvents == 0) {
+        if(numEvents == 0)
             break;
-        }
       }
     }
     return timeSlots;
