@@ -80,6 +80,31 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
+  public void noAttendeesAvailable() {
+    // No mandatory attendees, just two optional attendees with no gaps in their schedules. 
+    // query should return that no time is available..
+    //
+    // Events  : |-----A-----|     
+    //                       |----B----|
+    // Day     : |---------------------|
+    // Options :     
+
+
+    Collection<Event> events = Arrays.asList(
+        new Event("Event 1", TimeRange.fromStartEnd(TimeRange.START_OF_DAY, TIME_1100AM, false),
+            Arrays.asList(PERSON_A)),
+        new Event("Event 2", TimeRange.fromStartEnd(TIME_1100AM, TimeRange.END_OF_DAY, true),
+            Arrays.asList(PERSON_B)));
+
+    MeetingRequest request = new MeetingRequest(Arrays.asList(PERSON_A, PERSON_B), DURATION_30_MINUTES);
+
+    Collection<TimeRange> actual = query.query(events, request);
+    Collection<TimeRange> expected = Arrays.asList();
+
+    Assert.assertEquals(expected, actual);
+  }
+
+  @Test
   public void eventSplitsRestriction() {
     // The event should split the day into two options (before and after the event).
     Collection<Event> events = Arrays.asList(new Event("Event 1",
@@ -367,7 +392,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void optionalAttendeesAvailable() {
+  public void onlyOptionalAttendeesAvailable() {
     // No mandatory attendees, just two optional attendees with several gaps in their schedules. 
     // Those gaps should be identified and returned.
     //
