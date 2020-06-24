@@ -66,7 +66,7 @@ public final class FindMeetingQuery {
     for (Event event : events) {
       Set<String> eventAttendees = event.getAttendees();
       TimeRange when = event.getWhen();
-      int start = (when.start()) / 30;
+      int start = when.start() / 30;
       int eventSlots = when.duration() / 30;
 
       Iterator<String> eventAi = eventAttendees.iterator(); 
@@ -113,6 +113,7 @@ public final class FindMeetingQuery {
   }
 
   // converts list of available slots to a list of TimeRanges 
+  // assume slots contains only time slots that are at least the length of the requested Event
   public static ArrayList<TimeRange> convertToTimes (ArrayList<Integer> slots, int numRequestSlots, int numEvents) {
     ArrayList<TimeRange> possibleTimes = new ArrayList<TimeRange>();
 
@@ -145,6 +146,7 @@ public final class FindMeetingQuery {
         start = next*30;
         numEvents--;
       }
+      // if the algorithm has already reached all the events then there is no need to continue
       if (numEvents == 0) {
         break;
       }
